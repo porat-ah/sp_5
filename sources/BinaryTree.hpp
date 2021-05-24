@@ -28,6 +28,12 @@ namespace ariel{
             T operator*(){return T();}
             Iterator operator++(){return *this;}
             const Iterator operator++(int dummy){return *this;}
+            Iterator* operator ->(){
+                return this;
+            }
+            int size(){
+                return 0 ;
+            }
         };
     private:
         Iterator i;
