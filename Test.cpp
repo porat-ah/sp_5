@@ -1,4 +1,5 @@
 #include "doctest.h"
+#include <string>
 #include "sources/BinaryTree.hpp"
 using namespace ariel;
 TEST_CASE("all functons"){
@@ -28,6 +29,7 @@ TEST_CASE("all functons"){
          CHECK_EQ(*it,postorder[j++]);
     }
     CHECK_THROWS(tree.add_right(10,9));
+    CHECK_THROWS(tree.add_right(10,3));
    {
         auto it = tree.begin_inorder();
         for (int i : inorder)
@@ -52,6 +54,34 @@ TEST_CASE("all functons"){
             it++;
         }
    }
-    
+   tree.add_left(1,10);
+   inorder[1] = 10;
+   preorder[1] = 10;
+   postorder[2] = 10;
+   j = 0;
+   for (int i: tree)
+    {
+        CHECK_EQ(i,inorder[j++]);
+    }
+    j = 0;
+    for (auto it=tree.begin_preorder(); it!=tree.end_preorder(); ++it) {
+         CHECK_EQ(*it,preorder[j++]);
+    }
+    j = 0;
+    for (auto it=tree.begin_inorder(); it!=tree.end_inorder(); ++it) {
+         CHECK_EQ(*it,inorder[j++]);
+    }
+    j = 0;
+    for (auto it=tree.begin_postorder(); it!=tree.end_postorder(); ++it) {
+         CHECK_EQ(*it,postorder[j++]);
+    }
+    CHECK_NOTHROW(tree.add_left(10,8));
+    BinaryTree<std::string> tree2;
+    tree2.add_root("aabb").add_left("aabb","aab").add_left("aab","aa");
+    int len[]{4,3,2};
+    j = 0 ;
+   for (auto it=tree2.begin_preorder(); it!=tree2.end_preorder(); ++it) {
+         CHECK_EQ(it->size(),len[j++]);
+    }
 
 }
